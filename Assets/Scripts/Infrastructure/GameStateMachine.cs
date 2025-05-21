@@ -23,8 +23,12 @@ namespace Infrastructure
             var state = GetState<TState>();
             state.Enter();
         }
-        
-        public void Enter<T
+
+        public void Enter<TState, TPayload>(TPayload payload) where TState : IPayloadState<TPayload>
+        {
+            var state = GetState<TState>();
+            state.Enter(payload);
+        }
 
         private TState GetState<TState>() where TState : IExitableState
         {

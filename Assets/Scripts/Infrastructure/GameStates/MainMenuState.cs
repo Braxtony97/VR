@@ -1,4 +1,5 @@
 using Interfaces;
+using UnityEngine;
 
 namespace Infrastructure.GameStates
 {
@@ -15,12 +16,16 @@ namespace Infrastructure.GameStates
 
         public void Enter(string payload)
         {
-            throw new System.NotImplementedException();
+            _sceneLoader.Load(payload, onLoaded: MainMenuSceneLoaded);
+        }
+
+        private void MainMenuSceneLoaded()
+        {
+            Debug.Log("Main menu scene loaded");
         }
 
         public void Exit()
         {
-            throw new System.NotImplementedException();
         }
     }
 }

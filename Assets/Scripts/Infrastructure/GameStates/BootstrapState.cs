@@ -6,6 +6,7 @@ namespace Infrastructure.GameStates
     public class BootstrapState : IState
     {
         private const string BOOT = "Boot";
+        private const string MAINMENU = "MainMenu";
         
         private readonly SceneLoader _sceneLoader;
         private readonly GameStateMachine _stateMachine;
@@ -30,13 +31,13 @@ namespace Infrastructure.GameStates
 
         private void EnterMainMenuState()
         {
-            _stateMachine.Enter<MainMenuState>();
+            _stateMachine.Enter<MainMenuState, string>(MAINMENU);
         }
 
 
         public void Exit()
         {
-            throw new System.NotImplementedException();
+            Debug.Log("Exit Boot State");
         }
     }
 }
