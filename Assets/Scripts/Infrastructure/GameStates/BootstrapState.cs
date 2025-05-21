@@ -5,8 +5,8 @@ namespace Infrastructure.GameStates
 {
     public class BootstrapState : IState
     {
-        private const string BOOT = "Boot";
-        private const string MAINMENU = "MainMenu";
+        private const string Boot = "Boot";
+        private const string MainMenu = "MainMenu";
         
         private readonly SceneLoader _sceneLoader;
         private readonly GameStateMachine _stateMachine;
@@ -24,14 +24,12 @@ namespace Infrastructure.GameStates
 
         private void RegisterServices()
         {
-            Debug.Log("Registering Services");
-            
-            _sceneLoader.Load(BOOT, EnterMainMenuState);
+            _sceneLoader.Load(Boot, EnterMainMenuState);
         }
 
         private void EnterMainMenuState()
         {
-            _stateMachine.Enter<MainMenuState, string>(MAINMENU);
+            _stateMachine.Enter<MainMenuState, string>(MainMenu);
         }
 
 

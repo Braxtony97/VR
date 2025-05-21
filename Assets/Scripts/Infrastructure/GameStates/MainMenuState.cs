@@ -1,4 +1,5 @@
 using Interfaces;
+using UI;
 using UnityEngine;
 
 namespace Infrastructure.GameStates
@@ -7,21 +8,24 @@ namespace Infrastructure.GameStates
     {
         private readonly GameStateMachine _gameStateMachine;
         private readonly SceneLoader _sceneLoader;
+        private readonly UIRoot _uiRoot;
 
-        public MainMenuState(GameStateMachine gameStateMachine, SceneLoader sceneLoader)
+        public MainMenuState(GameStateMachine gameStateMachine, SceneLoader sceneLoader, UIRoot uiRoot)
         {
             _gameStateMachine = gameStateMachine;
             _sceneLoader = sceneLoader;
+            _uiRoot = uiRoot;
         }
 
         public void Enter(string payload)
         {
-            _sceneLoader.Load(payload, onLoaded: MainMenuSceneLoaded);
+            _uiRoot.LoadingScreen.Show();
+            _sceneLoader.Load(payload, MainMenuSceneLoaded);
         }
 
         private void MainMenuSceneLoaded()
         {
-            Debug.Log("Main menu scene loaded");
+            _uiRoot.LoadingScreen.Hide();
         }
 
         public void Exit()
