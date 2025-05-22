@@ -35,7 +35,6 @@ namespace Infrastructure.GameStates
 
         public void Exit()
         {
-            Debug.Log("Exit Boot State");
         }
     }
 }

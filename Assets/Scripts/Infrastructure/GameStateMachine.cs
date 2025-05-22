@@ -10,12 +10,12 @@ namespace Infrastructure
     {
         private readonly Dictionary<Type, IExitableState> _states;
         private IExitableState _currentState;
-        public GameStateMachine(SceneLoader sceneLoader, UIRoot uiRoot)
+        public GameStateMachine(SceneLoader sceneLoader, UIManager uiManager)
         {
             _states = new Dictionary<Type, IExitableState>()
             {
                 [typeof(BootstrapState)] = new BootstrapState(this, sceneLoader),
-                [typeof(MainMenuState)] = new MainMenuState(this, sceneLoader, uiRoot),
+                [typeof(MainMenuState)] = new MainMenuState(this, sceneLoader, uiManager),
             };
         }
 

@@ -8,24 +8,25 @@ namespace Infrastructure.GameStates
     {
         private readonly GameStateMachine _gameStateMachine;
         private readonly SceneLoader _sceneLoader;
-        private readonly UIRoot _uiRoot;
+        private readonly UIManager _uiManager;
 
-        public MainMenuState(GameStateMachine gameStateMachine, SceneLoader sceneLoader, UIRoot uiRoot)
+        public MainMenuState(GameStateMachine gameStateMachine, SceneLoader sceneLoader, UIManager uiManager)
         {
             _gameStateMachine = gameStateMachine;
             _sceneLoader = sceneLoader;
-            _uiRoot = uiRoot;
+            _uiManager = uiManager;
         }
 
         public void Enter(string payload)
         {
-            _uiRoot.LoadingScreen.Show();
+            _uiManager.ShowScreen(Enums.ScreenType.LoadingScreen);
             _sceneLoader.Load(payload, MainMenuSceneLoaded);
         }
 
         private void MainMenuSceneLoaded()
         {
-            _uiRoot.LoadingScreen.Hide();
+            _uiManager.HideScreen(Enums.ScreenType.LoadingScreen);
+            _uiManager.ShowScreen(Enums.ScreenType.MainMenu);
         }
 
         public void Exit()
