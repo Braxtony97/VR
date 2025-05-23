@@ -1,8 +1,7 @@
 using Infrastructure;
 using Infrastructure.GameStates;
 using Interfaces;
-using Static;
-using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -25,12 +24,22 @@ namespace UI.Screens
             _serviceLocator = serviceLocator;
             
             _trainingScene.onClick.AddListener(ClickTrainingButton);
+            _exitButton.onClick.AddListener(QuitApplication);
         }
 
         private void ClickTrainingButton()
         {
             _serviceLocator.Resolve<GameStateMachine>().Enter<TrainingState, string>(Training);
         } 
+        
+        private void QuitApplication()
+        {
+            Application.Quit();
+
+#if UNITY_EDITOR
+            EditorApplication.isPlaying = false;
+#endif
+        }
 
         public override void Deinitialize()
         {
