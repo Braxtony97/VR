@@ -6,9 +6,15 @@ namespace Infrastructure
     public class Game
     {
         public readonly GameStateMachine StateMachine;
-        public Game(ICoroutineRunner coroutineRunner, UIManager uiManager)
+        public Game(IServiceLocator serviceLocator)
         {
-            StateMachine = new GameStateMachine(new SceneLoader(coroutineRunner), uiManager);    
+            SceneLoader sceneLoader = new SceneLoader(serviceLocator.Resolve<ICoroutineRunner>());  
+            StateMachine = new GameStateMachine(serviceLocator);
+            
+            serviceLocator.Register(sceneLoader);
+            serviceLocator.Register(StateMachine);
+            
+            StateMachine.Init();
         }
     }
 }

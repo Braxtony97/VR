@@ -12,6 +12,9 @@ namespace UI
         
         [SerializeField] protected CanvasGroup _canvasGroup;
         
+        public abstract void Initialize();
+        public abstract void Deinitialize();
+        
         public void Show()
         {
             if (_canvasGroup !=null) 

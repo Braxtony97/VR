@@ -15,7 +15,7 @@ namespace UI
         private Transform _xrCamera;
         private ScreenView _currentScreen;
 
-        public void ShowScreen(Enums.ScreenType screenType)
+        public void CreateScreen(Enums.ScreenType screenType)
         {
             if (_currentScreen != null)
             {
@@ -41,6 +41,7 @@ namespace UI
 
                     _currentScreen = newScreen;
                     _currentScreen.Show(); 
+                    _currentScreen.Initialize();
                 }
             }
         }
@@ -67,7 +68,7 @@ namespace UI
             //скрипт для слежки
         }
 
-        public void HideScreen(Enums.ScreenType screenType)
+        public void DestroyScreen(Enums.ScreenType screenType)
         {
             if (_currentScreen != null)
             {
