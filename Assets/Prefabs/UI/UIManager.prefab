@@ -271,5 +271,6 @@ MonoBehaviour:
   _screenViews:
   - {fileID: 6536964293795699174, guid: 5b16b283a5f9cd647a90a9209cea3dcb, type: 3}
   - {fileID: 8223493068943268979, guid: 1e62a2ead2c1cc74a98879d4846d8ad4, type: 3}
+  - {fileID: 4039756541800609409, guid: 2aef2d9ee22e3c1489933af61f4bbc57, type: 3}
   _canvasOverlay: {fileID: 6817283938256486641}
   _canvasWorld: {fileID: 2597447345291748119}

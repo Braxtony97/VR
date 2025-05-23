@@ -9,9 +9,10 @@ namespace Infrastructure
         public Game(IServiceLocator serviceLocator)
         {
             SceneLoader sceneLoader = new SceneLoader(serviceLocator.Resolve<ICoroutineRunner>());  
+            serviceLocator.Register(sceneLoader);
+            
             StateMachine = new GameStateMachine(serviceLocator);
             
-            serviceLocator.Register(sceneLoader);
             serviceLocator.Register(StateMachine);
             
             StateMachine.Init();

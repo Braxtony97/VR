@@ -1,36 +1,24 @@
 using Infrastructure;
-using Infrastructure.GameStates;
 using Interfaces;
 using Static;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace UI.Screens
 {
-    public class MainMenuScreen : ScreenView
+    public class TrainingScreen : ScreenView
     {
         [Header("\nUI Elements")]
         [SerializeField] private Button _trainingScene;
         [SerializeField] private Button _exitButton;
-        
         private IEventAggregator _eventAggregator;
         private IServiceLocator _serviceLocator;
-
-        private const string Training = "Training";
 
         public override void Initialize(IEventAggregator eventAggregator, IServiceLocator serviceLocator)
         {
             _eventAggregator = eventAggregator;
             _serviceLocator = serviceLocator;
-            
-            _trainingScene.onClick.AddListener(ClickTrainingButton);
         }
-
-        private void ClickTrainingButton()
-        {
-            _serviceLocator.Resolve<GameStateMachine>().Enter<TrainingState, string>(Training);
-        } 
 
         public override void Deinitialize()
         {

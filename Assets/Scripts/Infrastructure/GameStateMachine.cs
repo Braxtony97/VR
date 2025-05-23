@@ -24,6 +24,7 @@ namespace Infrastructure
             {
                 [typeof(BootstrapState)] = new BootstrapState(_serviceLocator),
                 [typeof(MainMenuState)] = new MainMenuState(_serviceLocator),
+                [typeof(TrainingState)] = new TrainingState(_serviceLocator)
             };
         }
         

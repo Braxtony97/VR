@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 using System.Runtime.InteropServices.ComTypes;
+using Interfaces;
+using Static;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -14,6 +16,14 @@ namespace UI
 
         private Transform _xrCamera;
         private ScreenView _currentScreen;
+        private IEventAggregator _eventAggregator;
+        private IServiceLocator _serviceLocator;
+
+        public void Init(IEventAggregator eventAggregator, IServiceLocator serviceLocator)
+        {
+            _eventAggregator = eventAggregator;
+            _serviceLocator = serviceLocator;
+        }
 
         public void CreateScreen(Enums.ScreenType screenType)
         {
@@ -41,7 +51,7 @@ namespace UI
 
                     _currentScreen = newScreen;
                     _currentScreen.Show(); 
-                    _currentScreen.Initialize();
+                    _currentScreen.Initialize(_eventAggregator, _serviceLocator);
                 }
             }
         }

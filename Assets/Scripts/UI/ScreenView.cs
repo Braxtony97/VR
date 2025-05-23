@@ -1,3 +1,5 @@
+using Interfaces;
+using Static;
 using UnityEngine;
 
 namespace UI
@@ -12,7 +14,7 @@ namespace UI
         
         [SerializeField] protected CanvasGroup _canvasGroup;
         
-        public abstract void Initialize();
+        public abstract void Initialize(IEventAggregator eventAggregator, IServiceLocator serviceLocator);
         public abstract void Deinitialize();
         
         public void Show()

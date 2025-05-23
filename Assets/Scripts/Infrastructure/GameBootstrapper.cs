@@ -14,11 +14,14 @@ namespace Infrastructure
 
         private void Awake()
         {
+            _serviceLocator = new ServiceLocator();
+            _serviceLocator.Register<IEventAggregator>(new EventAggregator());
+            _serviceLocator.Register<ICoroutineRunner>(this);
+            
             UIManager uiManager = Instantiate(_uiManager);
+            uiManager.Init(_serviceLocator.Resolve<IEventAggregator>(), _serviceLocator);
             DontDestroyOnLoad(uiManager.gameObject);
             
-            _serviceLocator = new ServiceLocator();
-            _serviceLocator.Register<ICoroutineRunner>(this);
             _serviceLocator.Register(uiManager);
                 
             _game = new Game(_serviceLocator);

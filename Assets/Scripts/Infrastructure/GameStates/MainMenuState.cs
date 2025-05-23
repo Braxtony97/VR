@@ -1,4 +1,5 @@
 using Interfaces;
+using Static;
 using UI;
 using UnityEngine;
 
@@ -27,7 +28,6 @@ namespace Infrastructure.GameStates
 
         private void MainMenuSceneLoaded()
         {
-            //_uiManager.DestroyScreen(Enums.ScreenType.LoadingScreen);
             _uiManager.CreateScreen(Enums.ScreenType.MainMenu);
         }
 

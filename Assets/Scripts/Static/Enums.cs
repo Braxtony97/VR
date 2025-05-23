@@ -1,17 +1,24 @@
-namespace UI
+namespace Static
 {
     public static class Enums
     {
         public enum ScreenType
         {
             LoadingScreen,
-            MainMenu
+            MainMenu,
+            TrainingScreen
         }
 
         public enum CanvasType
         {
             Overlay,
             WorldSpace
+        }
+
+        public enum SceneType
+        {
+            MainMenu,
+            Training
         }
     }
 }
