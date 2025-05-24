@@ -519,6 +519,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ScreenType: 2
   CanvasType: 1
+  IsNeedFollowCamera: 1
   _canvasGroup: {fileID: 1190089144052698392}
   _trainingScene: {fileID: 0}
   _exitButton: {fileID: 0}

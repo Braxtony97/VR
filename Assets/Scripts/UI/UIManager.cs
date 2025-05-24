@@ -14,7 +14,7 @@ namespace UI
         [SerializeField] private Transform _canvasOverlay;
         [SerializeField] private Transform _canvasWorld;
 
-        private Transform _xrCamera;
+        private Camera _xrCamera;
         private ScreenView _currentScreen;
         private IEventAggregator _eventAggregator;
         private IServiceLocator _serviceLocator;
@@ -51,7 +51,7 @@ namespace UI
 
                     _currentScreen = newScreen;
                     _currentScreen.Show(); 
-                    _currentScreen.Initialize(_eventAggregator, _serviceLocator);
+                    _currentScreen.Initialize(_eventAggregator, _serviceLocator, _xrCamera);
                 }
             }
         }
@@ -60,22 +60,20 @@ namespace UI
         {
             GameObject xrCameraObj = GameObject.FindGameObjectWithTag("MainCamera");
             if (xrCameraObj != null) 
-                _xrCamera = xrCameraObj.transform;
+                _xrCamera = xrCameraObj.GetComponent<Camera>();
         }
 
         private void WorldSpaceCanvasSet(ScreenView newScreen)
         {
             newScreen.transform.SetParent(_canvasWorld, false);
                         
-            Vector3 forward = _xrCamera.forward;
-            Vector3 position = _xrCamera.position + forward * 2f;
+            Vector3 forward = _xrCamera.transform.forward;
+            Vector3 position = _xrCamera.transform.position + forward * 2f;
                         
             newScreen.transform.position = position;
                         
             Quaternion lookRotation = Quaternion.LookRotation(forward, Vector3.up);
             newScreen.transform.rotation = lookRotation;
-                        
-            //скрипт для слежки
         }
 
         public void DestroyScreen(Enums.ScreenType screenType)

@@ -12,18 +12,14 @@ namespace UI.Screens
         [Header("\nUI Elements")]
         [SerializeField] private Button _trainingScene;
         [SerializeField] private Button _exitButton;
-        
-        private IEventAggregator _eventAggregator;
-        private IServiceLocator _serviceLocator;
 
         private const string Training = "Training";
 
-        public override void Initialize(IEventAggregator eventAggregator, IServiceLocator serviceLocator)
+        public override void Initialize(IEventAggregator eventAggregator, IServiceLocator serviceLocator, Camera camera)
         {
-            _eventAggregator = eventAggregator;
-            _serviceLocator = serviceLocator;
+            base.Initialize(eventAggregator, serviceLocator, camera);
             
-            _trainingScene.onClick.AddListener(ClickTrainingButton);
+            _trainingScene.onClick.AddListener(ClickTrainingButton); 
             _exitButton.onClick.AddListener(QuitApplication);
         }
 

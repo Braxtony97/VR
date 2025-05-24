@@ -11,10 +11,22 @@ namespace UI
         
         [Header("\nCanvas type")]
         public Enums.CanvasType CanvasType;
+
+        [Header("\nCanvas type")] 
+        public bool IsNeedFollowCamera;
         
         [SerializeField] protected CanvasGroup _canvasGroup;
         
-        public abstract void Initialize(IEventAggregator eventAggregator, IServiceLocator serviceLocator);
+        protected IEventAggregator _eventAggregator;
+        protected IServiceLocator _serviceLocator;
+        protected Camera _camera;
+
+        public virtual void Initialize(IEventAggregator eventAggregator, IServiceLocator serviceLocator, Camera camera)
+        {
+            _eventAggregator = eventAggregator;
+            _serviceLocator = serviceLocator; 
+            _camera = camera;
+        }
         public abstract void Deinitialize();
         
         public void Show()
