@@ -34,10 +34,14 @@ namespace Static
 
         public class StepEndedEvent
         {
-            public Enums.StepStage StepStage;
+            public readonly Enums.StepStage StepStage;
+            public readonly Group GroupOwner;
 
-            public StepEndedEvent(Step step) => 
+            public StepEndedEvent(Step step, Group groupOwner)
+            { 
                 StepStage = step.StepStage;
+                GroupOwner = groupOwner;
+            }
         }
 
         public class ObjectDropZoneEvent
@@ -48,6 +52,24 @@ namespace Static
             {
                 IsObjectDropZone = isObjectDropZone;
             }
+        }
+
+        public class PushButtonEvent
+        {
+            public PushButtonEvent() { }
+        }
+
+        public class GroupEndedEvent
+        {
+            public Enums.GroupStage GroupStage;
+
+            public GroupEndedEvent(Group group) => 
+                GroupStage = group.GroupStage;
+        }
+
+        public class QuestEndedEvent
+        {
+            public QuestEndedEvent(QuestsManager questsManager) { }
         }
     }
 }

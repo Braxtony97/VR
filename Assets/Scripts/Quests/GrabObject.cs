@@ -38,7 +38,7 @@ namespace Quests
         
         private void OnTriggerEnter(Collider other)
         {
-            if (other.tag == TargetZone || !_wasGrabbed)
+            if (other.tag == TargetZone && !_wasGrabbed)
                 _eventAggregator.Publish(new EventsProvider.ObjectDropZoneEvent(true));
         }
     }

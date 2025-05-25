@@ -10,9 +10,9 @@ namespace Quests.Steps
         [SerializeField] private GrabObject _grabObject;
         [SerializeField] private Collider _targetZone;
 
-        public override void Initialize(IServiceLocator serviceLocator)
+        public override void Initialize(IServiceLocator serviceLocator, Group group)
         {
-            base.Initialize(serviceLocator);
+            base.Initialize(serviceLocator, group);
             
             _grabObject.Initialize(serviceLocator, _targetZone);
             
@@ -34,9 +34,15 @@ namespace Quests.Steps
         
         public override void EndStep()
         {
-            base.EndStep();
-            
             Debug.Log("Ended Drag Step");
+            base.EndStep();
+        }
+        
+        public override void Deinitialize()
+        {
+            base.Deinitialize();
+            
+            _eventAggregator?.Unsubscribe<EventsProvider.ObjectDropZoneEvent>(ObjectDropped);
         }
     }
 }

@@ -1,6 +1,7 @@
 using Interfaces;
 using Static;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Quests
 {
@@ -12,11 +13,13 @@ namespace Quests
         protected IServiceLocator _serviceLocator;
         protected IEventAggregator _eventAggregator;
         
-        public virtual void Initialize(IServiceLocator serviceLocator)
+        private Group _groupOwner;
+
+        public virtual void Initialize(IServiceLocator serviceLocator, Group group)
         {
             _serviceLocator = serviceLocator;
-            
             _eventAggregator = _serviceLocator.Resolve<IEventAggregator>();
+            _groupOwner = group;
         }
 
         public virtual void StartStep()
@@ -26,7 +29,7 @@ namespace Quests
 
         public virtual void EndStep()
         {
-            _eventAggregator.Publish(new EventsProvider.StepEndedEvent(this));
+            _eventAggregator.Publish(new EventsProvider.StepEndedEvent(this, _groupOwner));
         }
 
         public virtual void Deinitialize()

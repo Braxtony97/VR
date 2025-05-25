@@ -28,5 +28,11 @@ namespace Static
             Grab,
             Push
         }
+        
+        public enum GroupStage
+        {
+            CrossGrabPush,
+            PushGrab,
+        }
     }
 }

@@ -1,45 +1,46 @@
 using Interfaces;
+using Static;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Quests.Steps
 {
-    public class CrossStep : Step
+    public class PushStep : Step
     {
         [Header("Stage Parameters\n")]
-        [SerializeField] private Collider _collider;
-
+        [SerializeField] private Button _confirmButton;
+        
         public override void Initialize(IServiceLocator serviceLocator, Group group)
         {
             base.Initialize(serviceLocator, group);
-            _collider.enabled = false;
+            
+            _confirmButton.onClick.AddListener(ButtonPush);
         }
-        
+
         public override void StartStep()
         {
             base.StartStep();
-            _collider.enabled = true;
             
-            Debug.Log("Start Cross Step");
+            Debug.Log("Started Push Step");
         }
-        
-        private void OnTriggerEnter(Collider player)
+
+        private void ButtonPush()
         {
-            if (player.tag == MainCamera)
-            {
-                EndStep();
-            }
+            _eventAggregator.Publish(new EventsProvider.PushButtonEvent());
+            EndStep();
         }
         
         public override void EndStep()
         {
-            _collider.enabled = false;
-            Debug.Log("Ended Cross Step");
+            Debug.Log("Ended Push Step");
             base.EndStep();
         }
-
+        
         public override void Deinitialize()
         {
             base.Deinitialize();
+            
+            _confirmButton.onClick.RemoveListener(ButtonPush);
         }
     }
 }
