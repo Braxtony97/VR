@@ -20,5 +20,13 @@ namespace Static
             MainMenu,
             Training
         }
+
+        public enum StepStage
+        {
+            Cross,
+            EyeContact,
+            Drag,
+            Push
+        }
     }
 }

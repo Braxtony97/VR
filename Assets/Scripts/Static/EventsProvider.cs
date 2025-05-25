@@ -1,3 +1,5 @@
+using Quests;
+
 namespace Static
 {
     public static class EventsProvider
@@ -9,7 +11,7 @@ namespace Static
             public LoadSceneEvent(Enums.SceneType scene) => 
                 Scene = scene;
         }
-
+        
         public class ShowHideScreenEvent
         {
             public Enums.ScreenType Screen;
@@ -20,6 +22,22 @@ namespace Static
                 Screen = screen;
                 IsShowing = isShowing;
             } 
+        }
+        
+        public class StepStartedEvent
+        {
+            public Enums.StepStage Stage;
+
+            public StepStartedEvent(Step step) => 
+                Stage = step.StepStage;
+        }
+
+        public class StepEndedEvent
+        {
+            public Enums.StepStage Stage;
+
+            public StepEndedEvent(Step step) => 
+                Stage = step.StepStage;
         }
     }
 }
