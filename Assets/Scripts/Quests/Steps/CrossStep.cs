@@ -24,7 +24,6 @@ namespace Quests.Steps
         {
             if (player.tag == MainCamera)
             {
-                Debug.Log("Cross complete!!!");
                 EndStep();
             }
         }

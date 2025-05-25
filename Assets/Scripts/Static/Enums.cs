@@ -25,7 +25,7 @@ namespace Static
         {
             Cross,
             EyeContact,
-            Drag,
+            Grab,
             Push
         }
     }

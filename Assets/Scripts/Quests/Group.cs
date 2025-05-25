@@ -1,33 +1,71 @@
 using Interfaces;
+using Static;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Quests
 {
     public class Group : MonoBehaviour, IExecutableGroup
     {
-        public Step[] Steps;
-        
+        [SerializeField] private Step[] _steps;
+
+        private int _currentStepIndex;
+        private IServiceLocator _serviceLocator;
+        private IEventAggregator _eventAggregator;
+
         public void Initialize(IServiceLocator serviceLocator)
         {
-            foreach (Step step in Steps)
+            _eventAggregator = serviceLocator.Resolve<IEventAggregator>();
+            _eventAggregator.Subscribe<EventsProvider.StepEndedEvent>(OnStepEnded);
+            
+            foreach (Step step in _steps)
             {
                 step.Initialize(serviceLocator);
             }
         }
-
+        
         public void StartGroup()
         {
-            Steps[0].StartStep();
+            _currentStepIndex = 0;
+            StartCurrentStep();
+        }
+
+        private void StartCurrentStep()
+        {
+            if (_currentStepIndex <= _steps.Length)
+                _steps[_currentStepIndex].StartStep();
+        }
+
+        private void OnStepEnded(EventsProvider.StepEndedEvent stepEndedEvent)
+        {
+            if (_currentStepIndex < _steps.Length)
+                return;
+
+            if (_steps[_currentStepIndex].StepStage == stepEndedEvent.StepStage)
+            {
+                _currentStepIndex++;
+
+                if (_currentStepIndex <= _steps.Length)
+                    StartCurrentStep();
+                else
+                    EndGroup();
+            }
+            
         }
 
         public void EndGroup()
         {
-            throw new System.NotImplementedException();
+            Debug.Log("Group completed");
         }
 
         public void Deinitialize()
         {
-            throw new System.NotImplementedException();
+            _eventAggregator?.Unsubscribe<EventsProvider.StepEndedEvent>(OnStepEnded);
+
+            foreach (var step in _steps)
+            {
+                step.Deinitialize();
+            }
         }
     }
 }

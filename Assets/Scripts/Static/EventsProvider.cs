@@ -34,10 +34,20 @@ namespace Static
 
         public class StepEndedEvent
         {
-            public Enums.StepStage Stage;
+            public Enums.StepStage StepStage;
 
             public StepEndedEvent(Step step) => 
-                Stage = step.StepStage;
+                StepStage = step.StepStage;
+        }
+
+        public class ObjectDropZoneEvent
+        {
+            public readonly bool IsObjectDropZone;
+
+            public ObjectDropZoneEvent(bool isObjectDropZone)
+            {
+                IsObjectDropZone = isObjectDropZone;
+            }
         }
     }
 }
