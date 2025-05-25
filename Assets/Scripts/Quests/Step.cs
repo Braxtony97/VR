@@ -7,7 +7,8 @@ namespace Quests
     public abstract class Step : MonoBehaviour, IExecutableStep
     {
         public Enums.StepStage StepStage;
-        
+
+        protected const string MainCamera = "MainCamera";
         protected IServiceLocator _serviceLocator;
         protected IEventAggregator _eventAggregator;
         

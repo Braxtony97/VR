@@ -22,11 +22,11 @@ namespace Quests.Steps
         
         private void OnTriggerEnter(Collider player)
         {
-            /*if ()
+            if (player.tag == MainCamera)
             {
-                Debug.Log("Cross complete");
+                Debug.Log("Cross complete!!!");
                 EndStep();
-            }*/
+            }
         }
         
         public override void EndStep()

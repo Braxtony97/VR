@@ -1,5 +1,6 @@
 using System;
 using Interfaces;
+using Quests;
 using Static;
 using UI;
 
@@ -23,6 +24,10 @@ namespace Infrastructure.GameStates
         private void TrainingSceneLoaded()
         {
             _serviceLocator.Resolve<UIManager>().CreateScreen(Enums.ScreenType.TrainingScreen);
+
+            PlayModeSceneManager playeModeSceneManager = PlayModeSceneManager.Instance;
+            playeModeSceneManager.QuestManager.Initialize(_serviceLocator);
+            playeModeSceneManager.QuestManager.StartGroups();
         }
 
         public void Exit()
