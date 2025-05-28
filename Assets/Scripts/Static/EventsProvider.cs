@@ -1,4 +1,5 @@
 using Quests;
+using UnityEngine;
 
 namespace Static
 {
@@ -70,6 +71,15 @@ namespace Static
         public class QuestEndedEvent
         {
             public QuestEndedEvent(QuestsManager questsManager) { }
+        }
+
+        public class QuestPanelActiveEvent
+        {
+            public Enums.TrainingPanelUI Panel;
+            public QuestPanelActiveEvent(Enums.TrainingPanelUI questPanelUI)
+            {
+                Panel = questPanelUI;
+            }
         }
     }
 }

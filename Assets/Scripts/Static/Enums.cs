@@ -34,5 +34,13 @@ namespace Static
             CrossGrabPush,
             PushGrab,
         }
+        
+        public enum TrainingPanelUI
+        {
+            MainMenu,
+            Instruction,
+            Group,
+            Step
+        }
     }
 }
