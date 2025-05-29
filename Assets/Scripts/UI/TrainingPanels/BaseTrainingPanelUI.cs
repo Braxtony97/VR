@@ -2,7 +2,7 @@ using Interfaces;
 using Static;
 using UnityEngine;
 
-namespace UI
+namespace UI.TrainingPanels
 {
     public abstract class BaseTrainingPanelUI : MonoBehaviour
     {
@@ -26,13 +26,8 @@ namespace UI
             if (_mainPanel == null)
                 return;
             
-            if (!IsActive)
-            {
+            if (!IsActive) 
                 _mainPanel.SetActive(true);
-            }
-            
-            Debug.Log("Active Panel Activated");
-                
         }
 
         public virtual void Deactivate()
@@ -42,6 +37,10 @@ namespace UI
 
             if (IsActive)
                 _mainPanel.SetActive(false);
+        }
+        
+        public virtual void Deinitialize()
+        {
         }
     }
 }

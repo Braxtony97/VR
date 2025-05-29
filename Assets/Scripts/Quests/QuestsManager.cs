@@ -7,6 +7,8 @@ namespace Quests
 {
     public class QuestsManager : MonoBehaviour  
     {
+        public Group[] Groups => _groups;
+        
         [SerializeField] public Group[] _groups;
         
         private int _currentGroupIndex;
@@ -33,8 +35,6 @@ namespace Quests
         {
             if (_currentGroupIndex < _groups.Length)
                 _groups[_currentGroupIndex].StartGroup();
-            
-            Debug.Log($"STARTING GROUP {_currentGroupIndex}");
         }
 
         private void GroupEnded(EventsProvider.GroupEndedEvent groupEndedEvent)
@@ -46,10 +46,6 @@ namespace Quests
             {
                 _currentGroupIndex++;
                 
-                Debug.Log("_currentGroupIndex " + _currentGroupIndex);
-
-                Debug.Log("_groups.Length " + _groups.Length);
-                
                 if (_currentGroupIndex < _groups.Length)
                     StartCurrentGroup();
                 else
@@ -59,14 +55,18 @@ namespace Quests
 
         private void EndQuest()
         {
-            Debug.Log("Quest completed");
-            
             foreach (Group group in _groups)
             {
                 group.Deinitialize();
             }
             
             _eventAggregator.Publish(new EventsProvider.QuestEndedEvent(this));
+            _eventAggregator.Publish(new EventsProvider.QuestPanelActiveEvent(Enums.TrainingPanelUI.Result));
+        }
+
+        private void OnDestroy()
+        {
+            _eventAggregator.Unsubscribe<EventsProvider.GroupEndedEvent>(GroupEnded);
         }
     }
 }

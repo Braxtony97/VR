@@ -7,7 +7,9 @@ namespace Quests
 {
     public abstract class Step : MonoBehaviour, IExecutableStep
     {
+        public Group GroupOwner => _groupOwner;
         public Enums.StepStage StepStage;
+        public bool IsActiveStep = false;
 
         protected const string MainCamera = "MainCamera";
         protected IServiceLocator _serviceLocator;
@@ -24,11 +26,13 @@ namespace Quests
 
         public virtual void StartStep()
         {
+            IsActiveStep = true;
             _eventAggregator.Publish(new EventsProvider.StepStartedEvent(this));
         }
 
         public virtual void EndStep()
         {
+            IsActiveStep = false;
             _eventAggregator.Publish(new EventsProvider.StepEndedEvent(this, _groupOwner));
         }
 

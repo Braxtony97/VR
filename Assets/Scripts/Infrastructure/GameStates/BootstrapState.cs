@@ -25,16 +25,11 @@ namespace Infrastructure.GameStates
             RegisterServices();
         }
 
-        private void RegisterServices()
-        {
-            
+        private void RegisterServices() => 
             _sceneLoader.Load(Boot, EnterMainMenuState);
-        }
 
-        private void EnterMainMenuState()
-        {
+        private void EnterMainMenuState() => 
             _stateMachine.Enter<MainMenuState, string>(MainMenu);
-        }
 
 
         public void Exit()

@@ -40,7 +40,8 @@ namespace Static
             MainMenu,
             Instruction,
             Group,
-            Step
+            Step,
+            Result
         }
     }
 }

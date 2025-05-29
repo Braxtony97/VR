@@ -3,7 +3,7 @@ using Static;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace UI
+namespace UI.TrainingPanels
 {
     public class TrainingMainMenu : BaseTrainingPanelUI
     {

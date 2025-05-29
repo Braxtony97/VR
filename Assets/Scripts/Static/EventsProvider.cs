@@ -27,10 +27,14 @@ namespace Static
         
         public class StepStartedEvent
         {
+            public Step Step;
             public Enums.StepStage Stage;
 
-            public StepStartedEvent(Step step) => 
+            public StepStartedEvent(Step step)
+            {
+                Step = step;
                 Stage = step.StepStage;
+            }
         }
 
         public class StepEndedEvent
@@ -59,6 +63,18 @@ namespace Static
         {
             public PushButtonEvent() { }
         }
+        
+        public class GroupStartEvent
+        {
+            public Enums.GroupStage GroupStage;
+            public Group Group;
+
+            public GroupStartEvent(Group group)
+            {
+                GroupStage = group.GroupStage;
+                Group = group;
+            } 
+        }
 
         public class GroupEndedEvent
         {
@@ -75,11 +91,18 @@ namespace Static
 
         public class QuestPanelActiveEvent
         {
-            public Enums.TrainingPanelUI Panel;
+            public Enums.TrainingPanelUI Panel; 
             public QuestPanelActiveEvent(Enums.TrainingPanelUI questPanelUI)
             {
                 Panel = questPanelUI;
             }
+        }
+
+        public class TrainingPanelHideEvent
+        {
+            public bool IsShowing;
+            public TrainingPanelHideEvent(bool isShow) => 
+                IsShowing = isShow;
         }
     }
 }

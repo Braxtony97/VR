@@ -39,6 +39,8 @@ namespace UI.Screens
 
         public override void Deinitialize()
         {
+            _trainingScene.onClick.RemoveListener(ClickTrainingButton); 
+            _exitButton.onClick.RemoveListener(QuitApplication);
         }
     }
 }

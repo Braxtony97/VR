@@ -18,11 +18,22 @@ namespace UI
         private ScreenView _currentScreen;
         private IEventAggregator _eventAggregator;
         private IServiceLocator _serviceLocator;
+        
+        private bool _isPanelHidden = false;
 
         public void Init(IEventAggregator eventAggregator, IServiceLocator serviceLocator)
         {
             _eventAggregator = eventAggregator;
             _serviceLocator = serviceLocator;
+        }
+
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.O))
+            {
+                _isPanelHidden = !_isPanelHidden;
+                _eventAggregator.Publish(new EventsProvider.TrainingPanelHideEvent(_isPanelHidden));
+            }
         }
 
         public void CreateScreen(Enums.ScreenType screenType)

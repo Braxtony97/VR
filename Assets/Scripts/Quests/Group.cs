@@ -8,6 +8,8 @@ namespace Quests
     public class Group : MonoBehaviour, IExecutableGroup
     {
         public Enums.GroupStage GroupStage;
+        public bool IsGroupActive = false;
+        public Step[] Steps => _steps;
         
         [SerializeField] private Step[] _steps;
 
@@ -28,6 +30,8 @@ namespace Quests
         
         public void StartGroup()
         {
+            IsGroupActive = true;
+            _eventAggregator.Publish(new EventsProvider.GroupStartEvent(this));
             _currentStepIndex = 0;
             StartCurrentStep();
         }
@@ -36,6 +40,8 @@ namespace Quests
         {
             if (_currentStepIndex < _steps.Length)
                 _steps[_currentStepIndex].StartStep();
+
+            IsGroupActive = true;
         }
 
         private void OnStepEnded(EventsProvider.StepEndedEvent stepEndedEvent)
@@ -60,7 +66,7 @@ namespace Quests
         public void EndGroup()
         {
             Deinitialize();
-            
+            IsGroupActive = false;
             _eventAggregator.Publish(new EventsProvider.GroupEndedEvent(this));
         }
 

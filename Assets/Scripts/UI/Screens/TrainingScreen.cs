@@ -1,6 +1,7 @@
+using System.Collections.Generic;
 using Interfaces;
-using Quests;
 using Static;
+using UI.TrainingPanels;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -15,29 +16,69 @@ namespace UI.Screens
         [Header("Panels")] 
         [SerializeField] private BaseTrainingPanelUI[] _panels;
         
+        private Stack<BaseTrainingPanelUI> _panelStack;
+        
 
         public override void Initialize(IEventAggregator eventAggregator, IServiceLocator serviceLocator, Camera camera)
         {
             base.Initialize(eventAggregator, serviceLocator, camera);
             
-            _eventAggregator.Subscribe<EventsProvider.ShowHideScreenEvent>(ShowHideScreen);
-            _eventAggregator.Subscribe<EventsProvider.QuestPanelActiveEvent>(ActivePanel);
-            
             _closeButton.onClick.AddListener(() => Hide());
+            _backButton.onClick.AddListener(BackMove);
 
             foreach (var panel in _panels) 
                 panel.Initialize(_serviceLocator);
+            
+            _eventAggregator.Subscribe<EventsProvider.ShowHideScreenEvent>(ShowHideScreen);
+            _eventAggregator.Subscribe<EventsProvider.QuestPanelActiveEvent>(ActivePanel);
+            _eventAggregator.Subscribe<EventsProvider.TrainingPanelHideEvent>(ShowHidePanel);
+            
+            _panelStack = new Stack<BaseTrainingPanelUI>();
+            
+            ActivePanel(Enums.TrainingPanelUI.MainMenu);
+        }
+
+        private void ShowHidePanel(EventsProvider.TrainingPanelHideEvent trainingPanelHideEvent)
+        {
+            gameObject.SetActive(!trainingPanelHideEvent.IsShowing);
+        }
+
+        private void BackMove()
+        {
+            if (_panelStack.Count == 1)
+                return;
+            
+            if (_panelStack.Count > 0)
+            {
+                var currentPanel = _panelStack.Pop();
+                currentPanel.Deactivate();
+            }
+
+            if (_panelStack.Count > 0)
+            {
+                var previousPanel = _panelStack.Peek();
+                previousPanel.Activate();
+            }
         }
 
         private void ActivePanel(EventsProvider.QuestPanelActiveEvent questPanelActiveEvent)
         {
-            if (questPanelActiveEvent == null || _panels == null) return;
+            ActivePanel(questPanelActiveEvent.Panel);
+        }
+
+        private void ActivePanel(Enums.TrainingPanelUI trainingPanelUI)
+        {
+            if (trainingPanelUI == null || _panels == null) 
+                return;
             
             foreach (var panel in _panels)
             {
-                if (panel.TrainingPanelUI == questPanelActiveEvent.Panel)
+                if (panel.TrainingPanelUI == trainingPanelUI)
                 {
                     panel.Activate();
+                    
+                    if (_panelStack.Count == 0 || _panelStack.Peek() != panel)
+                        _panelStack.Push(panel);
                 }
                 else
                 {
@@ -64,7 +105,18 @@ namespace UI.Screens
 
         public override void Deinitialize()
         {
+            foreach (var panel in _panels) 
+                panel.Deinitialize();
+            
             _eventAggregator.Unsubscribe<EventsProvider.ShowHideScreenEvent>(ShowHideScreen);
+            _eventAggregator.Unsubscribe<EventsProvider.QuestPanelActiveEvent>(ActivePanel);
+            _eventAggregator.Unsubscribe<EventsProvider.TrainingPanelHideEvent>(ShowHidePanel);
+            
+            _closeButton.onClick.RemoveAllListeners();
+            _backButton.onClick.RemoveAllListeners();
         }
+
+        private void OnDestroy() => 
+            Deinitialize();
     }
 }

@@ -1,9 +1,6 @@
-using System;
 using Interfaces;
-using Quests;
 using Static;
 using UI;
-using UnityEngine;
 
 namespace Infrastructure.GameStates
 {
@@ -35,14 +32,11 @@ namespace Infrastructure.GameStates
 
         private void QuestEnded(EventsProvider.QuestEndedEvent questEndedEvent)
         {
-            Debug.Log("QuestEnded");
+            _serviceLocator.Resolve<IEventAggregator>().Unsubscribe<EventsProvider.QuestEndedEvent>(QuestEnded);
         }
-
-        
 
         public void Exit()
         {
-            throw new NotImplementedException();
         }
     }
 }
