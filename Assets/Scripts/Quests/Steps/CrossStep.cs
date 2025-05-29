@@ -5,6 +5,8 @@ namespace Quests.Steps
 {
     public class CrossStep : Step
     {
+        public override string Description { get; set; } = "Пересечь серую зону";
+        
         [Header("Stage Parameters\n")]
         [SerializeField] private Collider _collider;
 
@@ -18,8 +20,6 @@ namespace Quests.Steps
         {
             base.StartStep();
             _collider.enabled = true;
-            
-            Debug.Log("Start Cross Step");
         }
         
         private void OnTriggerEnter(Collider player)
@@ -33,7 +33,6 @@ namespace Quests.Steps
         public override void EndStep()
         {
             _collider.enabled = false;
-            Debug.Log("Ended Cross Step");
             base.EndStep();
         }
 

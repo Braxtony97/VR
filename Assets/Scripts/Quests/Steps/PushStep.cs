@@ -7,6 +7,8 @@ namespace Quests.Steps
 {
     public class PushStep : Step
     {
+        public override string Description { get; set; } = "Нажмите на желтую кнопку";
+        
         [Header("Stage Parameters\n")]
         [SerializeField] private Button _confirmButton;
         
@@ -20,8 +22,6 @@ namespace Quests.Steps
         public override void StartStep()
         {
             base.StartStep();
-            
-            Debug.Log("Started Push Step");
         }
 
         private void ButtonPush()
@@ -32,7 +32,6 @@ namespace Quests.Steps
         
         public override void EndStep()
         {
-            Debug.Log("Ended Push Step");
             base.EndStep();
         }
         

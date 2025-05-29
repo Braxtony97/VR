@@ -6,6 +6,8 @@ namespace Quests.Steps
 {
     public class GrabStep : Step
     {
+        public override string Description { get; set; } = "Перенести красную коробку в прозрачную область";
+        
         [Header("Stage Parameters\n")]
         [SerializeField] private GrabObject _grabObject;
         [SerializeField] private Collider _targetZone;
@@ -28,13 +30,10 @@ namespace Quests.Steps
         public override void StartStep()
         {
             base.StartStep();
-            
-            Debug.Log("Started Drag Step");
         }
         
         public override void EndStep()
         {
-            Debug.Log("Ended Drag Step");
             base.EndStep();
         }
         

@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Interfaces;
 using Quests;
 using Static;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace UI.TrainingPanels
@@ -39,7 +40,7 @@ namespace UI.TrainingPanels
                 }
                 
                 stepUI.gameObject.SetActive(true);
-                stepUI.SetStepName(group.Steps[i].name);
+                stepUI.SetStepName(group.Steps[i].Description);
                 stepUI.SetStep(group.Steps[i]);
                 
                 if (group.Steps[i].IsActiveStep)

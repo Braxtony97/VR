@@ -7,6 +7,7 @@ namespace Quests
 {
     public abstract class Step : MonoBehaviour, IExecutableStep
     {
+        public virtual string Description { get; set; }
         public Group GroupOwner => _groupOwner;
         public Enums.StepStage StepStage;
         public bool IsActiveStep = false;
