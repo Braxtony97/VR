@@ -27,7 +27,7 @@ namespace Infrastructure
                 yield break;
             }
             
-            yield return new WaitForSeconds(5);
+            yield return new WaitForSeconds(0.3f);
 
             AsyncOperation waitNextScene = SceneManager.LoadSceneAsync(sceneName);
             

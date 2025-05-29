@@ -4,6 +4,5 @@ namespace UI
 {
     public class UIRoot : MonoBehaviour
     {
-        public ScreenView LoadingScreen;
     }
 }

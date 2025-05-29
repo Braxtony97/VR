@@ -7,14 +7,24 @@ namespace Infrastructure
 {
     public class GameBootstrapper : MonoBehaviour, ICoroutineRunner
     {
-        [SerializeField] private UIRoot _uiRoot;
+        [SerializeField] private UIManager _uiManager;
         
         private Game _game;
+        private IServiceLocator _serviceLocator;
 
         private void Awake()
         {
-            var uiRoot = Instantiate(_uiRoot);
-            _game = new Game(this, uiRoot);
+            _serviceLocator = new ServiceLocator();
+            _serviceLocator.Register<IEventAggregator>(new EventAggregator());
+            _serviceLocator.Register<ICoroutineRunner>(this);
+            
+            UIManager uiManager = Instantiate(_uiManager);
+            uiManager.Init(_serviceLocator.Resolve<IEventAggregator>(), _serviceLocator);
+            DontDestroyOnLoad(uiManager.gameObject);
+            
+            _serviceLocator.Register(uiManager);
+                
+            _game = new Game(_serviceLocator);
             _game.StateMachine.Enter<BootstrapState>();
             
             DontDestroyOnLoad(gameObject);

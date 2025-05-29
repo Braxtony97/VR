@@ -11,6 +11,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/MainMenu.unity
     guid: 99c9720ab356a0642a771bea13969a05
+  - enabled: 1
+    path: Assets/Scenes/Training.unity
+    guid: a0c8d235bdd05e040bc6a2877bccd7f4
   m_configObjects:
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: f31d3506ca2f4e749a2002fafa76edbd,
       type: 2}
